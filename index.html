@@ -4,7 +4,7 @@
 	top:0;
 	width:500;
 	height:500;
-	//overflow:hidden;
+	overflow:hidden;
 	border:1px solid;
 }
 #canvas {
@@ -81,7 +81,7 @@ function transformMe()
     counter+=rel;
     var angle = (counter * 10) % 360;
     $('#canvas').css('transform','perspective(1000px)   rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)');
-	$('#canvas2').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(250px)rotate3d(0,1,0,90deg)');
+	$('#canvas2').css('transform','perspective(1000px) rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(125px)rotate3d(0,1,0,90deg) translateY(125px)scale3d(0.5,0.5,0.5)');
 	//$('#canvas2').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,1,0,' + -angle + 'deg)translateY(-250px)');
 };
 </script>
