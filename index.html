@@ -1,41 +1,31 @@
 <style>
-#viewport, #stage, #myCanvas {
-    width: 500px;
-    height: 500px;
-    position: absolute;
-    top: 0;
-    left: 0;
-}
-
-#viewport {
-    border: 1px solid #000;
-    overflow: hidden;
-}
-
-#stage {
-    perspective: 1000px;
-    transform-style: preserve-3d;
-}
-
-#myCanvas {
+#cont {
 	position:absolute;
-	margin:auto;
 	top:0;
-	bottom:0;
-	left:0;
-	right:0;
+	width:500;
+	height:500;
+	//overflow:hidden;
+	border:1px solid;
+}
+#canvas {
+	position:absolute;
+	top:0;
     background-color: green;
     transform-style: preserve-3d;
 }
-
-#stuff {
-    position: absolute;
-    top: 350px;
+#canvas2 {
+	position:absolute;
+	top:0;
+	//visibility:hidden;
+	
+    background-color: red;
+    transform-style: preserve-3d;
 }
 </style>
-
-<canvas id="myCanvas" width="500" height="500"></canvas>
-
+<div id="cont">
+	<canvas id="canvas" width="500" height="500"></canvas>
+	<canvas id="canvas2" width="500" height="500"></canvas>
+</div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
@@ -43,9 +33,11 @@ var counter = 0;
 var mov = 0;
 var rel = 0;
 transformMe();
-$('#myCanvas').mousedown(function _drawOnCanvas (e)
+$('#canvas').mousedown(_drawOnCanvas);
+function _drawOnCanvas (e)
 {
-    var c = document.getElementById("myCanvas");
+	le = e;
+    var c = document.getElementById("canvas");
     var ctx = c.getContext("2d");
     var xpos, ypos;
     
@@ -61,18 +53,18 @@ $('#myCanvas').mousedown(function _drawOnCanvas (e)
     }
     
     
-ctx.fillRect(xpos-5, ypos-5, 10, 10);
-});
-$('#myCanvas').mousemove(function(evt) {
+	ctx.fillRect(xpos-5, ypos-5, 10, 10);
+}
+$('#cont').mousemove(function(evt) {
 posx = evt.pageX;
 mov = ((posx/500)-.5);
-if(Math.abs(mov) < .2)
+if(Math.abs(mov) < .32)
 	mov = 0;
 mov = mov /50;
 console.log(mov);
 //transformMe();
 });
-$('#myCanvas').mouseleave(function(evt) {
+$('#cont').mouseleave(function(evt) {
 
 	mov = 0;
 
@@ -82,11 +74,14 @@ setInterval(function(){
 transformMe(); 
 rel+= mov;
 rel *= .95;
-}, 1);
+_drawOnCanvas(le);
+}, 10);
 function transformMe()
 {
     counter+=rel;
     var angle = (counter * 10) % 360;
-    $('#myCanvas').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)');
+    $('#canvas').css('transform','perspective(1000px)   rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)');
+	$('#canvas2').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(250px)rotate3d(0,1,0,90deg)');
+	//$('#canvas2').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,1,0,' + -angle + 'deg)translateY(-250px)');
 };
 </script>
