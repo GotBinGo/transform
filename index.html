@@ -4,7 +4,7 @@
 	top:0;
 	width:500;
 	height:500;
-	overflow:hidden;
+	//overflow:hidden;
 	border:1px solid;
 }
 #canvas {
@@ -18,25 +18,80 @@
 	top:0;
 	//visibility:hidden;
 	
-    background-color: red;
+    //background-color: red;
     transform-style: preserve-3d;
 }
+#canvas3 {
+	position:absolute;
+	top:0;
+	//visibility:hidden;
+	
+    //background-color: red;
+    transform-style: preserve-3d;
+}
+#canvas4 {
+	position:absolute;
+	top:0;
+	//visibility:hidden;
+	
+    //background-color: red;
+    transform-style: preserve-3d;
+}
+#canvas5 {
+	position:absolute;
+	top:0;
+	//visibility:hidden;
+	
+    //background-color: red;
+    transform-style: preserve-3d;
+}
+#canvas6 {
+	position:absolute;
+	top:0;
+	//visibility:hidden;
+	
+    //background-color: red;
+    transform-style: preserve-3d;
+}
+
+
 </style>
 <div id="cont">
 	<canvas id="canvas" width="500" height="500"></canvas>
 	<canvas id="canvas2" width="500" height="500"></canvas>
+	<canvas id="canvas3" width="500" height="500"></canvas>
+	<canvas id="canvas4" width="500" height="500"></canvas>
+	<canvas id="canvas5" width="500" height="500"></canvas>
+	<canvas id="canvas6" width="500" height="500"></canvas>
 </div>
 
 <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script>
+
+ var imageObj = new Image();
+      imageObj.onload = function() {
+	  for(var i = 2; i < 7; i ++)
+	  {
+	    var c = document.getElementById("canvas"+i);
+		var ctx = c.getContext("2d");
+        ctx.drawImage(imageObj, (500-this.width/15)/2, 515-this.height/15,this.width/15,this.height/15);
+//		ctx.drawImage(imageObj, 0,0,this.width/15,this.height/15);
+		}
+      };
+      imageObj.src = 'http://images.clipartpanda.com/tree-clip-art-yjixan7cE.png';
 var counter = 0;
 var mov = 0;
 var rel = 0;
+var p = 0;
+var le = 0;
 transformMe();
 $('#canvas').mousedown(_drawOnCanvas);
-function _drawOnCanvas (e)
+function _drawOnCanvas (e, gg)
 {
-	le = e;
+	if(gg == "go")
+	{}
+	else
+		le = e;
     var c = document.getElementById("canvas");
     var ctx = c.getContext("2d");
     var xpos, ypos;
@@ -60,9 +115,9 @@ posx = evt.pageX;
 mov = ((posx/500)-.5);
 if(Math.abs(mov) < .32)
 	mov = 0;
-mov = mov /50;
-console.log(mov);
+mov = mov /100;
 //transformMe();
+
 });
 $('#cont').mouseleave(function(evt) {
 
@@ -74,14 +129,25 @@ setInterval(function(){
 transformMe(); 
 rel+= mov;
 rel *= .95;
-_drawOnCanvas(le);
+p+= 1;
 }, 10);
 function transformMe()
 {
     counter+=rel;
     var angle = (counter * 10) % 360;
     $('#canvas').css('transform','perspective(1000px)   rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)');
-	$('#canvas2').css('transform','perspective(1000px) rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(125px)rotate3d(0,1,0,90deg) translateY(125px)scale3d(0.5,0.5,0.5)');
+	$('#canvas2').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(25px) rotate3d(0,1,0,90deg) translateZ(250px)translateY(250px)rotate3d(1,0,0,' + (angle+90) + 'deg)scale3d(-0.1,0.1,0.5)rotate3d(0,0,1,90deg)');
+	$('#canvas3').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(25px) rotate3d(0,1,0,90deg) translateZ(-250px)translateY(-250px)rotate3d(1,0,0,' + (angle+90) + 'deg)scale3d(-0.1,0.1,0.5)rotate3d(0,0,1,90deg)');
+	$('#canvas4').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(25px) rotate3d(0,1,0,90deg) translateZ(100px)translateY(100px)rotate3d(1,0,0,' + (angle+90) + 'deg)scale3d(-0.1,0.1,0.5)rotate3d(0,0,1,90deg)');
+	$('#canvas5').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(25px) rotate3d(0,1,0,90deg) translateZ(-100px)translateY(-100px)rotate3d(1,0,0,' + (angle+90) + 'deg)scale3d(-0.1,0.1,0.5)rotate3d(0,0,1,90deg)');
+	$('#canvas6').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(25px) rotate3d(0,1,0,90deg) translateZ(10px)translateY(0px)rotate3d(1,0,0,' + (angle+90) + 'deg)scale3d(-0.1,0.1,0.5)rotate3d(0,0,1,90deg)');
+	/*
+	$('#canvas2').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(25px) rotate3d(0,1,0,90deg) translateZ(250px)translateY(250px)rotate3d(1,0,0,' + (angle+90) + 'deg)scale3d(-0.1,0.1,0.5)rotate3d(0,0,1,90deg)');
+	$('#canvas3').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(25px) rotate3d(0,1,0,90deg) translateZ(-250px)translateY(-250px)rotate3d(1,0,0,' + (angle+90) + 'deg)scale3d(0.1,0.1,0.5)');
+	$('#canvas4').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(25px) rotate3d(0,1,0,90deg) translateZ(100px)translateY(100px)rotate3d(1,0,0,' + (angle+90) + 'deg)scale3d(0.1,0.1,0.5)');
+	$('#canvas5').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(25px) rotate3d(0,1,0,90deg) translateZ(-100px)translateY(-100px)rotate3d(1,0,0,' + (angle+90) + 'deg)scale3d(0.1,0.1,0.5)');
+	$('#canvas6').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,0,1,' + angle + 'deg)translateZ(25px) rotate3d(0,1,0,90deg) translateZ(0px)translateY(0px)rotate3d(1,0,0,' + (angle+90) + 'deg)scale3d(0.1,0.1,0.5)');
+	*/
 	//$('#canvas2').css('transform','perspective(1000px)  rotate3d(1,0,0,80deg)rotate3d(0,1,0,' + -angle + 'deg)translateY(-250px)');
 };
 </script>
